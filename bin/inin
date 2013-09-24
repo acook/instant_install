@@ -7,6 +7,10 @@ echo $1
 echo "
 Usage: inin command [options]
 
+inin search package         # find a package by name
+inin search --all package   # find a package by looking in all its fields
+inin search --regex "^pack" # find a package by regex of name
+
 inin download package       # download package file
 
 inin install package        # install package by name
@@ -20,36 +24,55 @@ inin upgrade package        # upgrade just this one package
 inin upgrade --deps package # upgrade just this package and its dependencies
 "
 
-exit 255
-
 }
 
-
-
 case "$1" in
-  -h|--help|help)
+  -h|--help|help) # HELP
+
     inin_help
+    exit 0
+
   ;;
 
-  in|install)
-    echo "INSTALL"
+  se|search) # SEARCH
+    shift
 
-    exit 0
+    apt-cache search $@ | sort
+
   ;;
 
-  re|refresh)
-    echo "REFRESH"
+  dl|download) # DOWNLOAD
+    shift
 
-    exit 0
+    echo "DOWNLOAD"
+
   ;;
 
-  up|upgrade)
-    echo "UPGRADE"
+  in|install) # INSTALL
+    shift
 
-    exit 0
+    sudo apt-get install $@
+
+  ;;
+
+  re|refresh) # REFRESH
+    shift
+
+    sudo apt-get update $@
+
+  ;;
+
+  up|upgrade) # UPGRADE
+    shift
+
+    sudo apt-get upgrade $@
+
   ;;
 
   *)
+
     inin_help "Unrecognized command: \"$1\""
+    exit 255
+
   ;;
 esac
