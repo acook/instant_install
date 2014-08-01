@@ -32,47 +32,51 @@ case "$1" in
     inin_help
     exit 0
 
-  ;;
+    ;;
 
   se|search) # SEARCH
     shift
 
+    pacman -Ss $@
     apt-cache search $@ | sort
 
-  ;;
+    ;;
 
   dl|download) # DOWNLOAD
     shift
 
     echo "DOWNLOAD"
 
-  ;;
+    ;;
 
   in|install) # INSTALL
     shift
 
+    sudo pacman -S $@
     sudo apt-get install $@
 
-  ;;
+    ;;
 
   re|refresh) # REFRESH
     shift
 
+    sudo pacman -Sy
     sudo apt-get update $@
 
-  ;;
+    ;;
 
   up|upgrade) # UPGRADE
     shift
 
+    sudo pacman -Suy
     sudo apt-get upgrade $@
 
-  ;;
+    ;;
 
   *)
 
     inin_help "Unrecognized command: \"$1\""
     exit 255
 
-  ;;
+    ;;
 esac
