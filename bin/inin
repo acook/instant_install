@@ -1,30 +1,52 @@
 #!/usr/bin/env bash
 
-function inin_help() {
+inin_help() {
 
 echo $1
 
 echo "
-Usage: inin command [options]
+usage: inin command [options]
+\unified and simplified cross-distro and cross-platform package management
 
-inin search package         # find a package by name
-inin search --all package   # find a package by looking in all its fields
-inin search --regex "^pack" # find a package by regex of name
+commands:
+\tinin search package         # find a package by name
+\tinin refresh                # get latest package list (may also upgrade package manager itself)
+\tinin upgrade                # upgrade outdated packages
 
-inin download package       # download package file
+in progress:
+\tinin search --all package   # TODO: find a package by looking in description and tag fields as well
+\tinin search --regex "^pack" # TODO: find a package by regex of name
+\tinin download package       # TODO: download package file
+\tinin install package        # TODO: install package by name
+\tinin install ./package.deb  # TODO: install package from file
+\tinin upgrade package        # TODO: upgrade just this one package to the latest without touching depdendencies
+\tinin upgrade --deps package # TODO: upgrade just this package and its dependencies
+\tmore package managers       # TODO: chocolatey (Windows), pkgman (Haiku), eopkg (Solus)
 
-inin install package        # install package by name
-inin install ./package.deb  # install package from file
-
-inin refresh                # get latest package list
-
-inin upgrade                # upgrade most outdated packages without getting all crazy
-inin upgrade --all          # upgrade all outdated packages, getting crazy in the process
-inin upgrade package        # upgrade just this one package
-inin upgrade --deps package # upgrade just this package and its dependencies
+Feel free to add your own OS/distro or missing functionality:
+\thttps://github/com/acook/instant_install
 "
 
 }
+
+command_exists() { command -v "$1" > /dev/null 2>&1; }
+
+if command_exists apt; then
+  manager=apt
+if command_exists apt-get; then
+  manager=apt-get
+elif command_exists pacman; then
+  manager=pacman
+elif command_exists brew; then
+  manager=brew
+elif command_exists emerge; then
+  manager=emerge
+else
+  echo "Unknown package manager."
+  echo "Please open an issue at:"
+  echo -e "\thttps://github.com/acook/instant_install/issues/new"
+  exit 254
+fi
 
 case "$1" in
   -h|--help|help) # HELP
@@ -37,39 +59,73 @@ case "$1" in
   se|search) # SEARCH
     shift
 
-    pacman -Ss $@
-    apt-cache search $@ | sort
+    case "$manager" in
+      apt-get) apt-cache search "$@" | sort ;;
+      apt) apt search "$@" ;;
+      brew) brew search "$@" ;;
+      pacman) pacman -Ss "$@" ;;
+      emerge) echo "TODO: I don't know how to search with emerge yet." ;;
+    esac
 
     ;;
 
   dl|download) # DOWNLOAD
     shift
 
-    echo "DOWNLOAD"
+    echo "TODO: DOWNLOAD"
 
     ;;
 
   in|install) # INSTALL
     shift
 
-    sudo pacman -S $@
-    sudo apt-get install $@
+    case "$manager" in
+      apt-get) sudo apt-get install "$@" ;;
+      apt) sudo apt install "$@" ;;
+      brew) brew install "$@" ;;
+      pacman) sudo pacman -S "$@" ;;
+      emerge) echo "TODO: I don't know how to install with emerge yet." ;;
+    esac
 
     ;;
 
   re|refresh) # REFRESH
     shift
 
-    sudo pacman -Sy
-    sudo apt-get update $@
+    case "$manager" in
+      apt-get) sudo apt-get update ;;
+      apt) sudo apt update ;;
+      brew) brew update ;;
+      pacman) sudo pacman -Sy ;;
+      emerge) echo "TODO: I don't know how to update with emerge yet." ;;
+    esac
 
     ;;
 
   up|upgrade) # UPGRADE
     shift
 
-    sudo pacman -Suy
-    sudo apt-get upgrade $@
+    case "$manager" in
+      apt-get)
+        sudo apt-get update
+        sudo apt-get safe-upgrade
+        ;;
+      apt)
+        sudo apt update
+        sudo apt upgrade
+        ;;
+      brew)
+        brew upgrade
+        ;;
+      pacman)
+        sudo pacman -Suy
+        ;;
+      emerge)
+        emerge --update --deep --newuse world
+        emerge --depclean
+        revdep-rebuild
+        ;;
+    esac
 
     ;;
 
