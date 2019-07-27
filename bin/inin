@@ -4,7 +4,7 @@ inin_help() {
 
 echo $1
 
-echo "
+echo -e "
 usage: inin command [options]
 \unified and simplified cross-distro and cross-platform package management
 
@@ -15,7 +15,7 @@ commands:
 
 in progress:
 \tinin search --all package   # TODO: find a package by looking in description and tag fields as well
-\tinin search --regex "^pack" # TODO: find a package by regex of name
+\tinin search --regex \"^pack\" # TODO: find a package by regex of name
 \tinin download package       # TODO: download package file
 \tinin install package        # TODO: install package by name
 \tinin install ./package.deb  # TODO: install package from file
@@ -33,7 +33,7 @@ command_exists() { command -v "$1" > /dev/null 2>&1; }
 
 if command_exists apt; then
   manager=apt
-if command_exists apt-get; then
+elif command_exists apt-get; then
   manager=apt-get
 elif command_exists pacman; then
   manager=pacman
@@ -60,11 +60,21 @@ case "$1" in
     shift
 
     case "$manager" in
-      apt-get) apt-cache search "$@" | sort ;;
-      apt) apt search "$@" ;;
-      brew) brew search "$@" ;;
-      pacman) pacman -Ss "$@" ;;
-      emerge) echo "TODO: I don't know how to search with emerge yet." ;;
+      apt-get)
+        apt-cache search "$@" | sort
+        ;;
+      apt)
+        apt search "$@"
+        ;;
+      brew)
+        brew search "$@"
+        ;;
+      pacman)
+        pacman -Ss "$@"
+        ;;
+      emerge)
+        echo "TODO: I don't know how to search with emerge yet."
+        ;;
     esac
 
     ;;
@@ -80,11 +90,21 @@ case "$1" in
     shift
 
     case "$manager" in
-      apt-get) sudo apt-get install "$@" ;;
-      apt) sudo apt install "$@" ;;
-      brew) brew install "$@" ;;
-      pacman) sudo pacman -S "$@" ;;
-      emerge) echo "TODO: I don't know how to install with emerge yet." ;;
+      apt-get)
+        sudo apt-get install "$@"
+        ;;
+      apt)
+        sudo apt install "$@"
+        ;;
+      brew)
+        brew install "$@"
+        ;;
+      pacman)
+        sudo pacman -S "$@"
+        ;;
+      emerge)
+        echo "TODO: I don't know how to install with emerge yet."
+        ;;
     esac
 
     ;;
@@ -93,11 +113,21 @@ case "$1" in
     shift
 
     case "$manager" in
-      apt-get) sudo apt-get update ;;
-      apt) sudo apt update ;;
-      brew) brew update ;;
-      pacman) sudo pacman -Sy ;;
-      emerge) echo "TODO: I don't know how to update with emerge yet." ;;
+      apt-get)
+        sudo apt-get update
+        ;;
+      apt)
+        sudo apt update
+        ;;
+      brew)
+        brew update
+        ;;
+      pacman)
+        sudo pacman -Sy
+        ;;
+      emerge)
+        echo "TODO: I don't know how to update with emerge yet."
+        ;;
     esac
 
     ;;
