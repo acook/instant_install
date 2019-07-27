@@ -21,7 +21,7 @@ in progress:
 \tinin install ./package.deb  # TODO: install package from file
 \tinin upgrade package        # TODO: upgrade just this one package to the latest without touching depdendencies
 \tinin upgrade --deps package # TODO: upgrade just this package and its dependencies
-\tmore package managers       # TODO: chocolatey (Windows), pkgman (Haiku), eopkg (Solus)
+\tmore package managers       # TODO: scoop (Windows), pkgman (Haiku), eopkg (Solus)
 
 Feel free to add your own OS/distro or missing functionality:
 \thttps://github/com/acook/instant_install
