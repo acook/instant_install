@@ -73,16 +73,19 @@ case "$command" in
       pacman)
         pacman -Ss "$@"
         ;;
-      emerge)
-        echo "TODO: I don't know how to search with emerge yet."
+      *)
+        echo "TODO: I don't know how to search with $manager yet."
         ;;
     esac
 
     ;;
 
   dl|download) # DOWNLOAD
-    echo "TODO: DOWNLOAD"
-
+    case "$manager" in
+      *)
+        echo "TODO: I don't know how to download with $manager yet."
+        ;;
+    esac
     ;;
 
   in|install) # INSTALL
@@ -99,8 +102,8 @@ case "$command" in
       pacman)
         sudo pacman -S "$@"
         ;;
-      emerge)
-        echo "TODO: I don't know how to install with emerge yet."
+      *)
+        echo "TODO: I don't know how to install with $manager yet."
         ;;
     esac
 
@@ -120,8 +123,8 @@ case "$command" in
       pacman)
         sudo pacman -Sy
         ;;
-      emerge)
-        echo "TODO: I don't know how to update with emerge yet."
+      *)
+        echo "TODO: I don't know how to refresh with $manager yet."
         ;;
     esac
 
@@ -147,6 +150,9 @@ case "$command" in
         emerge --update --deep --newuse world
         emerge --depclean
         revdep-rebuild
+        ;;
+      *)
+        echo "TODO: I don't know how to upgrade with $manager yet."
         ;;
     esac
 
