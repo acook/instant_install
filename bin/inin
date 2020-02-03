@@ -48,7 +48,10 @@ else
   exit 254
 fi
 
-case "$1" in
+command="$1"
+shift
+
+case "$command" in
   -h|--help|help) # HELP
 
     inin_help
@@ -57,8 +60,6 @@ case "$1" in
     ;;
 
   se|search) # SEARCH
-    shift
-
     case "$manager" in
       apt-get)
         apt-cache search "$@" | sort
@@ -80,15 +81,11 @@ case "$1" in
     ;;
 
   dl|download) # DOWNLOAD
-    shift
-
     echo "TODO: DOWNLOAD"
 
     ;;
 
   in|install) # INSTALL
-    shift
-
     case "$manager" in
       apt-get)
         sudo apt-get install "$@"
@@ -110,8 +107,6 @@ case "$1" in
     ;;
 
   re|refresh) # REFRESH
-    shift
-
     case "$manager" in
       apt-get)
         sudo apt-get update
@@ -133,8 +128,6 @@ case "$1" in
     ;;
 
   up|upgrade) # UPGRADE
-    shift
-
     case "$manager" in
       apt-get)
         sudo apt-get update
