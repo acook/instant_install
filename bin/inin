@@ -31,7 +31,9 @@ Feel free to add your own OS/distro or missing functionality:
 
 command_exists() { command -v "$1" > /dev/null 2>&1; }
 
-if command_exists apt; then
+if command_exists eopkg; then
+  manager=eopkg
+elif command_exists apt; then
   manager=apt
 elif command_exists apt-get; then
   manager=apt-get
@@ -61,6 +63,9 @@ case "$command" in
 
   se|search) # SEARCH
     case "$manager" in
+      eopkg)
+        eopkg search "$@"
+        ;;
       apt-get)
         apt-cache search "$@" | sort
         ;;
@@ -90,6 +95,9 @@ case "$command" in
 
   in|install) # INSTALL
     case "$manager" in
+      eopkg)
+        eopkg install "$@"
+        ;;
       apt-get)
         sudo apt-get install "$@"
         ;;
@@ -111,6 +119,9 @@ case "$command" in
 
   re|refresh) # REFRESH
     case "$manager" in
+      eopkg)
+        echo "eopkg refreshes automatically!"
+        ;;
       apt-get)
         sudo apt-get update
         ;;
@@ -132,6 +143,9 @@ case "$command" in
 
   up|upgrade) # UPGRADE
     case "$manager" in
+      eopkg)
+        eopkg upgrade
+        ;;
       apt-get)
         sudo apt-get update
         sudo apt-get safe-upgrade
