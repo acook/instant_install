@@ -9,7 +9,9 @@ usage: inin command [options]
 \unified and simplified cross-distro and cross-platform package management
 
 commands:
-\tinin search package         # find a package by name
+\tinin search                 # find a package by name
+\tinin install                # install a package
+\tinin remove                 # remove and uninstall package
 \tinin refresh                # get latest package list (may also upgrade package manager itself)
 \tinin upgrade                # upgrade outdated packages
 
@@ -17,11 +19,10 @@ in progress:
 \tinin search --all package   # TODO: find a package by looking in description and tag fields as well
 \tinin search --regex \"^pack\" # TODO: find a package by regex of name
 \tinin download package       # TODO: download package file
-\tinin install package        # TODO: install package by name
 \tinin install ./package.deb  # TODO: install package from file
 \tinin upgrade package        # TODO: upgrade just this one package to the latest without touching depdendencies
 \tinin upgrade --deps package # TODO: upgrade just this package and its dependencies
-\tmore package managers       # TODO: scoop (Windows), pkgman (Haiku), eopkg (Solus)
+\tmore package managers       # TODO: scoop (Windows), pkgman (Haiku), others...
 
 Feel free to add your own OS/distro or missing functionality:
 \thttps://github/com/acook/instant_install
@@ -167,6 +168,30 @@ case "$command" in
         ;;
       *)
         echo "TODO: I don't know how to upgrade with $manager yet."
+        ;;
+    esac
+
+    ;;
+
+  rm|remove) # UNINSTALL / REMOVE
+    case "$manager" in
+      eopkg)
+        eopkg remove "$@"
+        ;;
+      apt-get)
+        sudo apt-get remove "$@"
+        ;;
+      apt)
+        sudo apt remove "$@"
+        ;;
+      brew)
+        brew remove "$@"
+        ;;
+      pacman)
+        sudo pacman -Rsn "$@"
+        ;;
+      *)
+        echo "TODO: I don't know how to remove with $manager yet."
         ;;
     esac
 
