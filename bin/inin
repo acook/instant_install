@@ -51,6 +51,11 @@ else
   exit 254
 fi
 
+if [[ ! $EUID == 0 ]]; then
+  sudo $0 $@
+  exit $?
+fi
+
 command="$1"
 shift
 
