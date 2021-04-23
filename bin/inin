@@ -204,7 +204,7 @@ case "$command" in
 
   *)
 
-    inin_help "Unrecognized command: \"$1\""
+    inin_help "Unrecognized command: \"$command\""
     exit 255
 
     ;;
