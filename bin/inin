@@ -6,7 +6,7 @@ echo $1
 
 echo -e "
 usage: inin command [options]
-\unified and simplified cross-distro and cross-platform package management
+\tunified and simplified cross-distro and cross-platform package management
 
 commands:
 \tinin search                 # find a package by name
