@@ -44,6 +44,7 @@ elif command_exists apt; then
     if !command_exists apt-file; then
       echo 'inin - installing dependency `apt-file`'
       $0 install apt-file
+      sudo apt-file update
     fi
   }
 elif command_exists apt-get; then
@@ -176,6 +177,10 @@ case "$command" in
       eopkg)
         echo "inin - NOTE: eopkg can only search for files in already installed packages"
         eopkg search-file "$@"
+        ;;
+      apt|apt-get)
+        install_apt-file
+        apt-file find "$@"
         ;;
       *)
         echo "TODO: I don't know how to refresh with $manager yet."
