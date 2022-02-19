@@ -12,6 +12,7 @@ commands:
 \tinin (se)arch                 # find a package by name
 \tinin (in)stall                # install a package
 \tinin (r)e(m)ove                 # remove and uninstall package
+\tinin (fi)les                  # list the files from a named package
 \tinin (re)fresh                # get latest package list (may also upgrade package manager itself)
 \tinin (up)grade                # upgrade outdated packages
 \tinin (d)own(l)oad package       # download package file
@@ -125,6 +126,18 @@ case "$command" in
     esac
 
     ;;
+
+  fi|files) # FILES
+    case "$manager" in
+      eopkg)
+        eopkg info --files "$@" | sed '/Package found/Q'
+        ;;
+      *)
+        echo "TODO: I don't know how to display files with $manager yet."
+        ;;
+    esac
+
+  ;;
 
   re|refresh) # REFRESH
     case "$manager" in
