@@ -144,7 +144,7 @@ case "$command" in
 
     ;;
 
-  fi|files) # FILES
+  fi|files) # LIST FILES
     case "$manager" in
       eopkg)
         eopkg info --files "$@" | sed '/Package found/Q'
@@ -179,7 +179,7 @@ case "$command" in
 
     ;;
 
-  fn|find) # INFO
+  fn|find) # FIND FILES
     case "$manager" in
       eopkg)
         echo "inin - NOTE: eopkg can only search for files in already installed packages"
@@ -196,7 +196,7 @@ case "$command" in
 
     ;;
 
-  re|refresh) # REFRESH
+  re|refresh) # REFRESH REPO
     case "$manager" in
       eopkg)
         eopkg update-repo
@@ -220,7 +220,7 @@ case "$command" in
 
     ;;
 
-  up|upgrade) # UPGRADE
+  up|upgrade) # UPGRADE SYSTEM
     case "$manager" in
       eopkg)
         eopkg upgrade
