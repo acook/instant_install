@@ -142,7 +142,7 @@ case "$command" in
   re|refresh) # REFRESH
     case "$manager" in
       eopkg)
-        echo "eopkg refreshes automatically!"
+        eopkg update-repo
         ;;
       apt-get)
         sudo apt-get update
