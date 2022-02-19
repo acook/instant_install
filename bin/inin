@@ -14,11 +14,11 @@ commands:
 \tinin (r)e(m)ove                 # remove and uninstall package
 \tinin (re)fresh                # get latest package list (may also upgrade package manager itself)
 \tinin (up)grade                # upgrade outdated packages
+\tinin (d)own(l)oad package       # download package file
 
 in progress:
 \tinin search --all package   # TODO: find a package by looking in description and tag fields as well
 \tinin search --regex \"^pack\" # TODO: find a package by regex of name
-\tinin download package       # TODO: download package file
 \tinin install ./package.deb  # TODO: install package from file
 \tinin upgrade package        # TODO: upgrade just this one package to the latest without touching depdendencies
 \tinin upgrade --deps package # TODO: upgrade just this package and its dependencies
@@ -93,6 +93,9 @@ case "$command" in
 
   dl|download) # DOWNLOAD
     case "$manager" in
+      eopkg)
+        eopkg fetch "$@"
+        ;;
       *)
         echo "TODO: I don't know how to download with $manager yet."
         ;;
