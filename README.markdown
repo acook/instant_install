@@ -1,7 +1,9 @@
 Instant Install
 ===============
 
-Wrapper for stupid package managers (all of them).
+Simple script that lets you use the same set of commands for all(-ish) package managers, regardless of distro or OS.
+
+Every package manager has its own quirks and weird edge cases and forgettable syntax for common operations. This is my attempt to streamline that inconsistency since I use so many different systems all the time.
 
 Usage
 -----
@@ -32,5 +34,19 @@ in progress:
 
 Feel free to add your own OS/distro or missing functionality:
 	https://github/com/acook/instant_install
-
 ~~~
+
+Supported Package Managers
+--------------------------
+
+Package manager listed with its command coverage and notes:
+
+- eopkg [complete]
+- apt/apt-get [complete - will use apt over apt-get if possible, will install apt-file as needed automatically]
+- homebrew [nearly complete]
+- pacman [nearly complete - inin is essential unless you enjoy googling basic functions]
+- emerge [only updating - the most ridiculous task to get right]
+
+I haven't used an RPM-based system in ages, which is why its omission is glaringly obvious. Pull requests accepted!
+
+This script uses a couple bashisms and invokes bash on its shebang line. A pure d/a/sh version would be great, I just haven't gotten around to testing it. Works on every version of bash released this millenium and probably beyond.
