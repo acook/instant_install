@@ -9,20 +9,20 @@ usage: inin command [options]
 \tunified and simplified cross-distro and cross-platform package management
 
 commands:
-\tinin (se)arch                 # find a package by name
-\tinin (in)stall                # install a package
-\tinin (r)e(m)ove                 # remove and uninstall package
-\tinin (fi)les                  # list the files from a named package
-\tinin (re)fresh                # get latest package list (may also upgrade package manager itself)
-\tinin (up)grade                # upgrade outdated packages
-\tinin (d)own(l)oad package       # download package file
-\tinin i(nf)o                   # display info for package
-\tinin (f)i(n)d                 # find which package provides given file (some managers can only search installed packages)
+\tinin (d)own(l)oad package\t# download a package without installing it
+\tinin (fi)les\t\t\t# list the files from a named package
+\tinin (f)i(n)d\t\t\t# find which package provides given file (some can only search installed packages)
+\tinin i(nf)o\t\t\t# display description for package
+\tinin (in)stall\t\t\t# install a package
+\tinin (re)fresh\t\t\t# get latest package list (may also upgrade package manager itself)
+\tinin (r)e(m)ove\t\t\t# remove and uninstall package
+\tinin (se)arch\t\t\t# search for a package by name
+\tinin (up)grade\t\t\t# upgrade all outdated packages
 
 in progress:
 \tinin search --all package   # TODO: find a package by looking in description and tag fields as well
-\tinin search --regex \"^pack\" # TODO: find a package by regex of name
-\tinin install ./package.deb  # TODO: install package from file
+\tinin search --regex \"^pack\" # TODO: find a package by regex
+\tinin install ./package.deb  # TODO: install package from local file
 \tinin upgrade package        # TODO: upgrade just this one package to the latest without touching depdendencies
 \tinin upgrade --deps package # TODO: upgrade just this package and its dependencies
 \tinin -m eopkg               # TODO: specify a package manager (for when multiple are available)
