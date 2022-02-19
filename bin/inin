@@ -9,7 +9,7 @@ usage: inin command [options]
 \tunified and simplified cross-distro and cross-platform package management
 
 commands:
-\tinin (d)own(l)oad package\t# download a package without installing it
+\tinin (d)own(l)oad\t\t# download a package without installing it
 \tinin (fi)les\t\t\t# list the files from a named package
 \tinin (f)i(n)d\t\t\t# find which package provides given file (some can only search installed packages)
 \tinin i(nf)o\t\t\t# display description for package
