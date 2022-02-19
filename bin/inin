@@ -9,11 +9,11 @@ usage: inin command [options]
 \tunified and simplified cross-distro and cross-platform package management
 
 commands:
-\tinin search                 # find a package by name
-\tinin install                # install a package
-\tinin remove                 # remove and uninstall package
-\tinin refresh                # get latest package list (may also upgrade package manager itself)
-\tinin upgrade                # upgrade outdated packages
+\tinin (se)arch                 # find a package by name
+\tinin (in)stall                # install a package
+\tinin (r)e(m)ove                 # remove and uninstall package
+\tinin (re)fresh                # get latest package list (may also upgrade package manager itself)
+\tinin (up)grade                # upgrade outdated packages
 
 in progress:
 \tinin search --all package   # TODO: find a package by looking in description and tag fields as well
