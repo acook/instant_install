@@ -193,6 +193,10 @@ case "$command" in
         install_apt-file
         apt-file find "$@"
         ;;
+      brew)
+        echo "inin - NOTE: homebrew can only search for files in already installed packages"
+        find $(brew --cellar) -name "$@"
+        ;;
       *)
         echo "TODO: I don't know how to refresh with $manager yet."
         ;;
