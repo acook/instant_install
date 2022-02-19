@@ -11,7 +11,7 @@ usage: inin command [options]
 	unified and simplified cross-distro and cross-platform package management
 
 commands:
-	inin (d)own(l)oad package	# download a package without installing it
+	inin (d)own(l)oad		# download a package without installing it
 	inin (fi)les			# list the files from a named package
 	inin (f)i(n)d			# find which package provides given file (some can only search installed packages)
 	inin i(nf)o			# display description for package
