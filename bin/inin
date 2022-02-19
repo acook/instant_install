@@ -16,6 +16,7 @@ commands:
 \tinin (re)fresh                # get latest package list (may also upgrade package manager itself)
 \tinin (up)grade                # upgrade outdated packages
 \tinin (d)own(l)oad package       # download package file
+\tinin i(nf)o                   # display info for package
 
 in progress:
 \tinin search --all package   # TODO: find a package by looking in description and tag fields as well
@@ -156,6 +157,18 @@ case "$command" in
     esac
 
   ;;
+
+  nf|info) # INFO
+    case "$manager" in
+      eopkg)
+        eopkg info "$@"
+        ;;
+      *)
+        echo "TODO: I don't know how to refresh with $manager yet."
+        ;;
+    esac
+
+    ;;
 
   re|refresh) # REFRESH
     case "$manager" in
