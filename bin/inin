@@ -111,6 +111,9 @@ case "$command" in
         echo "inin - NOTE: apt-get puts the downloaded files in /var/cache/apt/archives and doesn't work on already installed packages"
         apt-get install -d "$@"
         ;;
+      pacman)
+        pacman -Sw "$@"
+        ;;
       *)
         echo "TODO: I don't know how to download with $manager yet."
         ;;
