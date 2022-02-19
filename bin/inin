@@ -133,6 +133,14 @@ case "$command" in
       eopkg)
         eopkg info --files "$@" | sed '/Package found/Q'
         ;;
+      apt|apt-get)
+        if !command_exists apt-file; then
+          echo 'inin - installing dependency `apt-file`'
+          $0 install apt-file
+        fi
+        apt-file update
+        apt-file list "$@"
+        ;;
       *)
         echo "TODO: I don't know how to display files with $manager yet."
         ;;
