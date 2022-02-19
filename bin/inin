@@ -38,6 +38,12 @@ if command_exists eopkg; then
   manager=eopkg
 elif command_exists apt; then
   manager=apt
+  install_apt-file() {
+    if !command_exists apt-file; then
+      echo 'inin - installing dependency `apt-file`'
+      $0 install apt-file
+    fi
+  }
 elif command_exists apt-get; then
   manager=apt-get
 elif command_exists pacman; then
@@ -134,10 +140,7 @@ case "$command" in
         eopkg info --files "$@" | sed '/Package found/Q'
         ;;
       apt|apt-get)
-        if !command_exists apt-file; then
-          echo 'inin - installing dependency `apt-file`'
-          $0 install apt-file
-        fi
+        install_apt-file
         apt-file update
         apt-file list "$@"
         ;;
