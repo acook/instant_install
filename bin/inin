@@ -144,6 +144,9 @@ case "$command" in
       brew)
         brew ls --verbose "$@"
         ;;
+      pacman)
+        pacman --query --list "$@"
+        ;;
       *)
         echo "TODO: I don't know how to display files with $manager yet."
         ;;
