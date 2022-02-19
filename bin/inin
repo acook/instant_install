@@ -23,6 +23,7 @@ in progress:
 \tinin install ./package.deb  # TODO: install package from file
 \tinin upgrade package        # TODO: upgrade just this one package to the latest without touching depdendencies
 \tinin upgrade --deps package # TODO: upgrade just this package and its dependencies
+\tinin -m eopkg               # TODO: specify a package manager (for when multiple are available)
 \tmore package managers       # TODO: scoop (Windows), pkgman (Haiku), others...
 
 Feel free to add your own OS/distro or missing functionality:
