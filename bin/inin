@@ -141,6 +141,9 @@ case "$command" in
         apt-file update
         apt-file list "$@"
         ;;
+      brew)
+        brew ls --verbose "$@"
+        ;;
       *)
         echo "TODO: I don't know how to display files with $manager yet."
         ;;
