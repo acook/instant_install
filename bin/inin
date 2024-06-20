@@ -56,6 +56,8 @@ elif command_exists apt; then
   }
 elif command_exists apt-get; then
   manager=apt-get
+elif command_exists garuda-update; then
+  manager=garuda-update
 elif command_exists pacman; then
   manager=pacman
 elif command_exists brew; then
@@ -99,7 +101,7 @@ case "$command" in
       brew)
         brew search "$@"
         ;;
-      pacman)
+      pacman|garuda-update)
         pacman -Ss "$@"
         ;;
       *)
@@ -118,7 +120,7 @@ case "$command" in
         echo "inin - NOTE: apt-get puts the downloaded files in /var/cache/apt/archives and doesn't work on already installed packages"
         apt-get install -d "$@"
         ;;
-      pacman)
+      pacman|garuda-update)
         pacman -Sw "$@"
         ;;
       *)
@@ -141,7 +143,7 @@ case "$command" in
       brew)
         brew install "$@"
         ;;
-      pacman)
+      pacman|garuda-update)
         sudo pacman -S "$@"
         ;;
       *)
@@ -164,7 +166,7 @@ case "$command" in
       brew)
         brew ls --verbose "$@"
         ;;
-      pacman)
+      pacman|garuda-update)
         pacman --query --list "$@"
         ;;
       *)
@@ -183,7 +185,7 @@ case "$command" in
         # also check out `apt-cache show "$@" | grep -E "^Package|Description-en|^ "` for comparison
         apt-cache search "^$@$" | grep -E "^$@ -"
         ;;
-      pacman)
+      pacman|garuda-update)
         pacman --query --info "$@"
         ;;
       *)
@@ -225,7 +227,7 @@ case "$command" in
       brew)
         brew list
         ;;
-      pacman)
+      pacman|garuda-update)
         pacman -Q
         ;;
       *)
@@ -249,7 +251,7 @@ case "$command" in
       brew)
         brew update
         ;;
-      pacman)
+      pacman|garuda-update)
         sudo pacman -Sy
         ;;
       *)
@@ -274,6 +276,9 @@ case "$command" in
         ;;
       brew)
         brew upgrade
+        ;;
+      garuda-update)
+        garuda-update
         ;;
       pacman)
         sudo pacman -Suy
@@ -304,7 +309,7 @@ case "$command" in
       brew)
         brew remove "$@"
         ;;
-      pacman)
+      pacman|garuda-update)
         sudo pacman -Rsn "$@"
         ;;
       *)
