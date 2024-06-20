@@ -14,6 +14,7 @@ commands:
 \tinin (f)i(n)d\t\t\t# find which package provides given file (some can only search installed packages)
 \tinin i(nf)o\t\t\t# display description for package
 \tinin (in)stall\t\t\t# install a package
+\tinin (li)st\t\t\t# list installed packaged
 \tinin (re)fresh\t\t\t# get latest package list (may also upgrade package manager itself)
 \tinin (r)e(m)ove\t\t\t# remove and uninstall package
 \tinin (se)arch\t\t\t# search for a package by name
@@ -201,7 +202,28 @@ case "$command" in
         find $(brew --cellar) -name "$@"
         ;;
       *)
-        echo "TODO: I don't know how to refresh with $manager yet."
+        echo "TODO: I don't know how to find files with $manager yet."
+        ;;
+    esac
+
+    ;;
+
+  li|list) # LIST INSTALLED PACKAGES
+    case "$manager" in
+      eopkg)
+        eopkg list-installed
+        ;;
+      apt)
+        apt list --installed
+        ;;
+      brew)
+        brew list
+        ;;
+      pacman)
+        pacman -Q
+        ;;
+      *)
+        echo "TODO: I don't know how to list installed packages with $manager yet."
         ;;
     esac
 
