@@ -9,6 +9,7 @@ usage: inin command [options]
 \tunified and simplified cross-distro and cross-platform package management
 
 commands:
+\tinin (s)afe-(c)lean\t\t\t# safely remove unneeded packages and cache
 \tinin (d)own(l)oad\t\t# download a package without installing it
 \tinin (fi)les\t\t\t# list the files from a named package
 \tinin (f)i(n)d\t\t\t# find which package provides given file (some can only search installed packages)
@@ -109,6 +110,32 @@ case "$command" in
         ;;
     esac
 
+    ;;
+
+  sc|safe-clean) # SAFE CLEAN
+    case "$manager" in
+      eopkg)
+        sudo eopkg remove-orphans
+        sudo eopkg delete-cache
+        ;;
+      apt)
+        sudo apt autoremove && apt autoclean
+        ;;
+      apt-get)
+        sudo apt-get autoremove && apt-get autoclean
+        ;;
+      brew)
+        brew autoremove && brew cleanup
+        ;;
+      pacman|garuda-update)
+        if command_exists paccache; then
+          # keep last version of packages to make downgrading possible
+          sudo paccache -rk1
+        else
+          echo "WARNING: paccache not found, install pacman-contrib"
+        fi
+        ;;
+    esac
     ;;
 
   dl|download) # DOWNLOAD
