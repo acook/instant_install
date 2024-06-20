@@ -20,13 +20,15 @@ commands:
 \tinin (se)arch\t\t\t# search for a package by name
 \tinin (up)grade\t\t\t# upgrade all outdated packages
 
+options:
+\tinin -m manager command\t\t\t# specify package manager instead of detecting it, good for when managers are on the same system
+
 in progress:
 \tinin search --all package   # TODO: find a package by looking in description and tag fields as well
 \tinin search --regex \"^pack\" # TODO: find a package by regex
 \tinin install ./package.deb  # TODO: install package from local file
 \tinin upgrade package        # TODO: upgrade just this one package to the latest without touching depdendencies
 \tinin upgrade --deps package # TODO: upgrade just this package and its dependencies
-\tinin -m eopkg               # TODO: specify a package manager (for when multiple are available)
 \tmore package managers       # TODO: scoop (Windows), pkgman (Haiku), others...
 
 Feel free to add your own OS/distro or missing functionality:
@@ -37,7 +39,11 @@ Feel free to add your own OS/distro or missing functionality:
 
 command_exists() { command -v "$1" > /dev/null 2>&1; }
 
-if command_exists eopkg; then
+if [[ $1 == "-m" ]]; then
+  shift
+  manager="$1"
+  shift
+elif command_exists eopkg; then
   manager=eopkg
 elif command_exists apt; then
   manager=apt
