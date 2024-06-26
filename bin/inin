@@ -10,6 +10,7 @@ usage: inin command [options]
 
 commands:
 \tinin (s)afe-(c)lean\t\t\t# safely remove unneeded packages and cache
+\tinin (d)e(p)enden(t)s\t# list packages which depend on named package
 \tinin (d)own(l)oad\t\t# download a package without installing it
 \tinin (fi)les\t\t\t# list the files from a named package
 \tinin (f)i(n)d\t\t\t# find which package provides given file (some can only search installed packages)
@@ -137,6 +138,27 @@ case "$command" in
         ;;
     esac
     ;;
+
+  dpt|dependents) # DEPENDENTS
+    case "$manager" in
+      eopkg)
+        sudo eopkg remove -n -y "$@" | tail -1 | tr ' ' '\n' | sort
+        ;;
+      apt|apt-get)
+        apt-cache rdepends "$@"
+        ;;
+      pacman|garuda-update)
+        pacman --sync --info --info "$@"
+        ;;
+      brew)
+        brew deps --tree --installed "$@"
+        ;;
+      *)
+        echo "TODO: I don't know how to show dependencies with $manager yet."
+        ;;
+    esac
+    ;;
+
 
   dl|download) # DOWNLOAD
     case "$manager" in
